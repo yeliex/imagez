@@ -1,0 +1,38 @@
+{
+  "name": "@imagez/imagemagick",
+  "version": "0.0.1",
+  "description": "an image-magick nodejs implement",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "install": "node script/install/index.js",
+    "test": "mocha --require ../../script/register.js test/**/*.test.ts --bail --check-leaks --full-trace"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeliex/imagez.git"
+  },
+  "keywords": [
+    "image",
+    "compress",
+    "image-magick"
+  ],
+  "author": "yeliex <yeliex@yeliex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yeliex/imagez/issues"
+  },
+  "homepage": "https://github.com/yeliex/imagez#readme",
+  "engines": {},
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "lookpath": "^1.0.5"
+  }
+}

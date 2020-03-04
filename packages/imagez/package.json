@@ -1,0 +1,32 @@
+{
+  "name": "imagez",
+  "version": "0.0.1",
+  "description": "image compress for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "test": "mocha --require ../../script/register.js test/**/*.test.ts --bail --check-leaks --full-trace"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeliex/imagez.git"
+  },
+  "keywords": [
+    "image",
+    "compress"
+  ],
+  "author": "yeliex <yeliex@yeliex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yeliex/imagez/issues"
+  },
+  "homepage": "https://github.com/yeliex/imagez#readme",
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "@imagez/imagemagick": "^0.0.1"
+  }
+}

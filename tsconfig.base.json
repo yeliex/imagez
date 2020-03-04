@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "charset": "utf8",
+    "experimentalDecorators": true,
+    "importHelpers": false,
+    "lib": [
+      "esnext"
+    ],
+    "locale": "zh-cn",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "pretty": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "target": "ES2019"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

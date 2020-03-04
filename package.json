@@ -1,0 +1,37 @@
+{
+  "name": "imagez",
+  "description": "image compress for nodejs",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test --stream"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeliex/imagez.git"
+  },
+  "keywords": [
+    "image",
+    "compress"
+  ],
+  "author": "yeliex <yeliex@yeliex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yeliex/imagez/issues"
+  },
+  "homepage": "https://github.com/yeliex/imagez#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.10",
+    "@types/lodash": "^4.14.149",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.7",
+    "chai": "^4.2.0",
+    "lerna": "^3.20.2",
+    "mocha": "^7.1.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  }
+}
