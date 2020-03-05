@@ -68,11 +68,11 @@ export interface MiscellaneousOptions {
     log?: string;
 }
 
-type Format = string;
-type MimeType = string;
-type Unit = string;
-type ImageType = string;
-type ColorSpace = string;
+export type Format = string;
+export type MimeType = string;
+export type Unit = string;
+export type ImageType = string;
+export type ColorSpace = string;
 
 export interface Identify {
     baseName: string;

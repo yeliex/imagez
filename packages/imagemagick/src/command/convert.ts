@@ -1,12 +1,13 @@
 import * as ImageMagick from '../typing';
 import { ReadStream, createWriteStream } from 'fs';
-import { Readable } from 'stream';
+import { Readable, Transform } from 'stream';
 import * as assert from 'assert';
 import { executor } from '../executor';
 
 export interface ConvertOptions {
     colors?: number;
     quality?: number;
+    format?: ImageMagick.Format;
 }
 
 const optionsToArgs = (options: ConvertOptions): string[] => {
@@ -30,18 +31,45 @@ export async function convert(input: ImageMagick.InputFile, output: string | Con
     assert(!output || typeof output === 'string', 'invalid output, want string of output path');
     assert(!options || typeof options === 'object', 'invalid options, want object');
 
-    const args = optionsToArgs(options);
+    const args = optionsToArgs(options || {});
 
-    const outputStream = output ? createWriteStream(output as string) : new Readable();
+    // outputStream should be an writeable
+    const outputStream = output ? createWriteStream(output as string, {
+        autoClose: true,
+    }) : new Transform({
+        transform: function (chunk, encoding, callback) {
+            this.push(chunk, encoding);
+            callback();
+        },
+    });
 
-    const res = typeof input === 'string' ? await executor('convert', [input, ...args, '-'], {
+    typeof input === 'string' ? executor('convert', [input, ...args, '-'], {
         output: outputStream,
-    }) : await executor('convert', ['-', ...args, '-'], {
+    }) : executor('convert', ['-', ...args, '-'], {
         input,
         output: outputStream,
     });
 
-    console.log(res);
+    if (output) {
+        // return after write stream close
+        return new Promise((rec, rej) => {
+            let returned = false;
+            outputStream.once('close', () => {
+                if (returned) {
+                    return;
+                }
+                returned = true;
+                rec();
+            });
+            outputStream.once('error', (e) => {
+                if (returned) {
+                    return;
+                }
+                returned = true;
+                rej(e);
+            });
+        });
+    }
 
-    return output ? null : outputStream as Readable;
+    return outputStream as Readable;
 }

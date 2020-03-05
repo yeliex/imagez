@@ -1,7 +1,8 @@
 import { ReadStream } from 'fs';
-import { identify, convert, Identify } from '@imagez/imagemagick';
+import { identify, convert, Identify, ConvertOptions } from '@imagez/imagemagick';
 import * as assert from 'assert';
-import { MIME_TYPE, SUPPORT_MIME } from './const';
+import { COMPRESS_MAP, MIME_TYPE, SUPPORT_MIME } from './const';
+import { Readable } from 'stream';
 
 export default class ImageZ {
     private readonly file: ReadStream;
@@ -27,6 +28,10 @@ export default class ImageZ {
         return this.info.quality;
     }
 
+    get autoQuality(): number {
+        return COMPRESS_MAP[this.quality as keyof typeof COMPRESS_MAP] || 10;
+    }
+
     get isAlpha(): boolean {
         if (this.info.mimeType !== MIME_TYPE.PNG) {
             return false;
@@ -50,12 +55,23 @@ export default class ImageZ {
         this.colorNum = await identify(this.file, '%k');
     }
 
+    public async compress(qualit = this.autoQuality) {
+
+    }
+
     public async toPNG8() {
 
     }
 
     public async toWEBP() {
 
+    }
+
+    // convert image to format
+    public async convert(options: ConvertOptions = {}): Promise<Readable> {
+        await this.ready;
+
+        return convert(this.file, options);
     }
 
     public async resize() {

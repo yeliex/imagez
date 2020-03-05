@@ -20,13 +20,13 @@ interface ExecutorOptions extends ChildProcess.SpawnOptions {
     input?: FS.ReadStream;
 }
 
-interface ExecutorOptionsWithOutput<T extends FS.WriteStream> extends ExecutorOptions {
+interface ExecutorOptionsWithOutput<T extends Stream.Writable> extends ExecutorOptions {
     output: T;
 }
 
 export async function executor(command: string, args: string[], options?: ExecutorOptions): Promise<string>
-export async function executor<T extends Stream = Stream>(command: string, args: string[], options?: ExecutorOptionsWithOutput<T>): Promise<ChildProcessByStdio<Stream.Writable, Stream.Readable, Stream.Readable>>
-export async function executor<T extends Stream = Stream>(command: string, args: string[], options?: ExecutorOptionsWithOutput<T>): Promise<ChildProcessByStdio<Stream.Writable, Stream.Readable, Stream.Readable> | string> {
+export async function executor<T extends Stream.Writable = Stream.Writable>(command: string, args: string[], options?: ExecutorOptionsWithOutput<T>): Promise<ChildProcessByStdio<Stream.Writable, Stream.Readable, Stream.Readable>>
+export async function executor<T extends Stream.Writable = Stream.Writable>(command: string, args: string[], options?: ExecutorOptionsWithOutput<T>): Promise<ChildProcessByStdio<Stream.Writable, Stream.Readable, Stream.Readable> | string> {
     await ready;
     const { input, output, ...others } = options || {};
 
